@@ -38,5 +38,66 @@ func _ready():
 
                                                         print("Enemy defeated.")
 
-                                                            queue_free()
+                                                            var battlefield_manager = get_node_or_null(
+                                                                        "/root/BattlefieldManager"
+                                                            )
+
+                                                                if battlefield_manager:
+                                                                        battlefield_manager.register_enemy_defeat()
+
+                                                                            queue_free()
+                                                            )
                     )
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+             
+
+
+
+                         
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                
+
+
+
+                                                
+
+
+
+
+
+
+                                                                    
+
+
+
+
+
+
+
