@@ -3,17 +3,35 @@
 [ext_resource type="Script" path="res://scripts/entities/Enemy.gd" id="1"]
 
 [sub_resource type="CapsuleShape3D" id="1"]
+radius = 0.5
+height = 1.8
 
 [sub_resource type="CapsuleMesh" id="2"]
+radius = 0.5
+mid_height = 1.0
 
 [node name="BasicEnemy" type="CharacterBody3D"]
-
 script = ExtResource("1")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-
 shape = SubResource("1")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-
 mesh = SubResource("2")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

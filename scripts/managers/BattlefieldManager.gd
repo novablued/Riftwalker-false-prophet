@@ -1,19 +1,60 @@
 extends Node
 
-var escalation_level := 0
-var enemy_defeat_count := 0
+@export var enemy_scene: PackedScene
 
-func register_enemy_defeat():
+var enemies_spawned := 0
+var max_enemies := 5
 
-    enemy_defeat_count += 1
+func _ready():
+	randomize()
 
-        print("Enemy defeats:", enemy_defeat_count)
+    	spawn_wave()
 
-            if enemy_defeat_count % 5 == 0:
-                    escalate_battlefield()
+        func spawn_wave():
+        	for i in range(max_enemies):
+            		spawn_enemy()
 
-                    func escalate_battlefield():
+                    func spawn_enemy():
+                    	if enemy_scene == null:
+                        		print("No enemy scene assigned")
+                                		return
 
-                        escalation_level += 1
+                                        	var enemy = enemy_scene.instantiate()
 
-                            print("Battlefield escalated to level:", escalation_level)extends
+                                            	var x = randf_range(-8.0, 8.0)
+                                                	var z = randf_range(-8.0, 8.0)
+
+                                                    	enemy.position = Vector3(x, 1, z)
+
+                                                        	get_tree().current_scene.add_child(enemy)
+
+                                                            	enemies_spawned += 1
+
+                                                                	print("Enemy spawned:", enemies_spawned)
+
+                                                                    func register_kill():
+                                                                    	enemies_spawned -= 1
+
+                                                                        	print("Enemy defeated")
+
+                                                                            	if enemies_spawned <= 0:
+                                                                                		print("Wave cleared")
+                                                                                        		max_enemies += 2
+                                                                                                		spawn_wave()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

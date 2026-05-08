@@ -5,54 +5,74 @@ config_version=5
 
 [application]
 
-config/name="RIFTWALKER FALSE PROPHET"
+config/name="RIFTWALKER: FALSE PROPHET"
 run/main_scene="res://scenes/arenas/TestArena.tscn"
 config/features=PackedStringArray("4.2")
 config/icon="res://icon.svg"
 
 [display]
 
-window/size/viewport_width=480
-window/size/viewport_height=272
+window/size/viewport_width=1280
+window/size/viewport_height=720
 window/stretch/mode="canvas_items"
 window/stretch/aspect="keep"
 
 [rendering]
 
-renderer/rendering_method="mobile"
+renderer/rendering_method="forward_plus"
 
-[autoload]
 
-LegionRite="*res://scripts/autoload/LegionRite.gd"
 
-[input]
 
-move_forward={
-    "deadzone": 0.5,
-    "events": [Object(InputEventKey,"resource_local_to_scene":false,"device":0,"physical_keycode":87)]
-}
 
-move_backward={
-    "deadzone": 0.5,
-    "events": [Object(InputEventKey,"resource_local_to_scene":false,"device":0,"physical_keycode":83)]
-}
 
-move_left={
-    "deadzone": 0.5,
-    "events": [Object(InputEventKey,"resource_local_to_scene":false,"device":0,"physical_keycode":65)]
-}
 
-move_right={
-    "deadzone": 0.5,
-    "events": [Object(InputEventKey,"resource_local_to_scene":false,"device":0,"physical_keycode":68)]
-}
 
-attack={
-    "deadzone": 0.5,
-    "events": [Object(InputEventMouseButton,"resource_local_to_scene":false,"device":0,"button_index":1)]
-}
-}
-}
-}
-}
-}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   
+
+
+
+
+
+
