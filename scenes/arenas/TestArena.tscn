@@ -1,25 +1,50 @@
-[gd_scene format=3]
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/player/Nova.tscn" id="2"]
+
+[sub_resource type="BoxMesh" id="1"]
+
+[sub_resource type="BoxShape3D" id="2"]
+size = Vector3(20, 1, 20)
 
 [node name="TestArena" type="Node3D"]
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+rotation = Vector3(-0.785398, 0, 0)
 
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 0)
-
-[node name="Floor" type="StaticBody3D" parent="."]
+[node name="Floor" type="MeshInstance3D" parent="."]
+mesh = SubResource("1")
+scale = Vector3(20, 1, 20)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Floor"]
+shape = SubResource("2")
 
-shape = SubResource("BoxShape3D_floor")
+[node name="StaticBody3D" type="StaticBody3D" parent="Floor"]
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor"]
+[node name="Nova" parent="." instance=ExtResource("2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
 
-mesh = SubResource("BoxMesh_floor")
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_floor"]
 
-size = Vector3(20, 1, 20)
 
-[sub_resource type="BoxMesh" id="BoxMesh_floor"]
 
-size = Vector3(20, 1, 20)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
