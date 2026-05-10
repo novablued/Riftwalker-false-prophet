@@ -18,3 +18,12 @@ transform = Transform3D(1,0,0,0,1,0,0,0,1,0,1,0)
 
 [node name="Enemy" parent="." instance=ExtResource("2")]
 transform = Transform3D(1,0,0,0,1,0,0,0,1,5,1,0)
+
+[node name="TutorialUI" type="CanvasLayer" parent="."]
+
+[node name="ControlsLabel" type="Label" parent="TutorialUI"]
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 420.0
+offset_bottom = 120.0
+text = "WASD = Move\nLeft Click = Attack\n\nDefeat enemies to raise Revenants."
