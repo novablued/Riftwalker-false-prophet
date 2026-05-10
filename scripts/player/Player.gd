@@ -1,54 +1,64 @@
 extends CharacterBody3D
 
-const MOVE_SPEED = 5.5
-const ACCELERATION = 10.0
-const GRAVITY = 18.0
-const MOUSE_SENS = 0.0025
+@export var move_speed := 5.0
+@export var gravity := 9.8
+@export var attack_range := 2.5
+@export var attack_damage := 10
 
-@onready var camera_pivot = $CameraPivot
-
-var mouse_rotation := Vector2.ZERO
+var mouse_sensitivity := 0.003
 
 func _ready():
-    Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
-    func _unhandled_input(event):
-        if event is InputEventMouseMotion:
-                mouse_rotation.x -= event.relative.y * MOUSE_SENS
-                        mouse_rotation.y -= event.relative.x * MOUSE_SENS
+add_to_group("player")
 
-                                mouse_rotation.x = clamp(mouse_rotation.x, deg_to_rad(-80), deg_to_rad(80))
+Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
-                                        rotation.y = mouse_rotation.y
-                                                camera_pivot.rotation.x = mouse_rotation.x
 
-                                                func _physics_process(delta):
+func _physics_process(delta):
 
-                                                    if not is_on_floor():
-                                                            velocity.y -= GRAVITY * delta
+handle_movement(delta)
 
-                                                                var input_dir = Vector2.ZERO
+if Input.is_action_just_pressed("attack"):
+attack()
 
-                                                                    input_dir.x = Input.get_action_strength("move_right") - Input.get_action_strength("move_left")
-                                                                        input_dir.y = Input.get_action_strength("move_backward") - Input.get_action_strength("move_forward")
 
-                                                                            input_dir = input_dir.normalized()
+func handle_movement(delta):
 
-                                                                                var direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+var input_dir = Vector3.ZERO
 
-                                                                                    if direction:
-                                                                                            velocity.x = move_toward(velocity.x, direction.x * MOVE_SPEED, ACCELERATION * delta)
-                                                                                                    velocity.z = move_toward(velocity.z, direction.z * MOVE_SPEED, ACCELERATION * delta)
-                                                                                                        else:
-                                                                                                                velocity.x = move_toward(velocity.x, 0, ACCELERATION * delta)
-                                                                                                                        velocity.z = move_toward(velocity.z, 0, ACCELERATION * delta)
+if Input.is_action_pressed("move_forward"):
+input_dir.z -= 1
 
-                                                                                                                            move_and_slide()
+if Input.is_action_pressed("move_backward"):
+input_dir.z += 1
 
-                                                                                                                            func _input(event):
+if Input.is_action_pressed("move_left"):
+input_dir.x -= 1
 
-                                                                                                                                if event.is_action_pressed("attack"):
-                                                                                                                                        attack()
+if Input.is_action_pressed("move_right"):
+input_dir.x += 1
 
-                                                                                                                                        func attack():
-                                                                                                                                            print("Nova attacks.")
+input_dir = input_dir.normalized()
+
+velocity.x = input_dir.x * move_speed
+velocity.z = input_dir.z * move_speed
+
+if not is_on_floor():
+velocity.y -= gravity * delta
+
+move_and_slide()
+
+
+func attack():
+
+print("Nova attacks.")
+
+var enemies = get_tree().get_nodes_in_group("enemy")
+
+for enemy in enemies:
+
+if enemy.global_position.distance_to(global_position) <= attack_range:
+
+enemy.take_damage(attack_damage)
+
+print("Enemy hit.")
