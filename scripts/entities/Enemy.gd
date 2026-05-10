@@ -1,103 +1,43 @@
 extends CharacterBody3D
 
+@export var health := 25
 @export var move_speed := 3.0
-@export var max_health := 50
 
-var current_health := 50
-var target = null
+var player = null
 
 func _ready():
 
-    current_health = max_health
+add_to_group("enemy")
 
-    func _physics_process(delta):
-
-        if target == null:
-                return
-
-                    var direction = (
-                                target.global_transform.origin
-                                        - global_transform.origin
-                    ).normalized()
-
-                        velocity.x = direction.x * move_speed
-                            velocity.z = direction.z * move_speed
-
-                                move_and_slide()
-
-                                func take_damage(amount):
-
-                                    current_health -= amount
-
-                                        print("Enemy damaged:", amount)
-
-                                            if current_health <= 0:
-                                                    die()
-
-                                                    func die():
-
-                                                        print("Enemy defeated.")
-
-                                                            var battlefield_manager = get_node_or_null(
-                                                                        "/root/BattlefieldManager"
-                                                            )
-
-                                                                if battlefield_manager:
-                                                                        battlefield_manager.register_enemy_defeat()
-
-                                                                            queue_free()
-                                                            )
-                    )
+player = get_tree().get_first_node_in_group("player")
 
 
+func _physics_process(delta):
+
+if player == null:
+return
+
+var direction = (player.global_position - global_position).normalized()
+
+velocity = direction * move_speed
+
+move_and_slide()
 
 
+func take_damage(amount):
+
+health -= amount
+
+print("Enemy damaged: ", health)
+
+if health <= 0:
+die()
 
 
+func die():
 
+print("Enemy defeated.")
 
+LegionRite.summon_revenant(global_position)
 
-
-
-
-
-
-             
-
-
-
-                         
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                                
-
-
-
-                                                
-
-
-
-
-
-
-                                                                    
-
-
-
-
-
-
-
+queue_free()

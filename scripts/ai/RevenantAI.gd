@@ -1,25 +1,32 @@
 extends CharacterBody3D
 
-@export var move_speed := 3.0
-@export var target_path : NodePath
+@export var move_speed := 4.0
 
 var target = null
 
 func _ready():
-	if target_path != NodePath():
-    		target = get_node(target_path)
 
-            func _physics_process(delta):
-            	if target == null:
-                		return
+add_to_group("revenant")
 
-                        	var direction = (
-                                		target.global_transform.origin
-                                        		- global_transform.origin
-                            ).normalized()
+find_target()
 
-                            	velocity.x = direction.x * move_speed
-                                	velocity.z = direction.z * move_speed
 
-                                    	move_and_slide()
-                            )
+func _physics_process(delta):
+
+if target == null:
+find_target()
+return
+
+var direction = (target.global_position - global_position).normalized()
+
+velocity = direction * move_speed
+
+move_and_slide()
+
+
+func find_target():
+
+var enemies = get_tree().get_nodes_in_group("enemy")
+
+if enemies.size() > 0:
+target = enemies[0]
