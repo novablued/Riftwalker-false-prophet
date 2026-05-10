@@ -1,43 +1,27 @@
 extends CharacterBody3D
 
-@export var health := 25
-@export var move_speed := 3.0
-
-var player = null
-
-func _ready():
-
-add_to_group("enemy")
-
-player = get_tree().get_first_node_in_group("player")
-
-
-func _physics_process(delta):
-
-if player == null:
-return
-
-var direction = (player.global_position - global_position).normalized()
-
-velocity = direction * move_speed
-
-move_and_slide()
-
+@export var max_health := 50
+var current_health := max_health
+var is_dead := false
 
 func take_damage(amount):
+if is_dead:
+return
 
-health -= amount
+current_health -= amount
 
-print("Enemy damaged: ", health)
-
-if health <= 0:
+if current_health <= 0:
 die()
 
-
 func die():
+if is_dead:
+return
+
+is_dead = true
 
 print("Enemy defeated.")
 
-LegionRite.summon_revenant(global_position)
+# Future manual necromancy system hook
+# Corpse remains available for resurrection
 
 queue_free()

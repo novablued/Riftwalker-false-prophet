@@ -138,3 +138,8 @@ weapon_previous={
 "deadzone": 0.2,
 "events": []
 }
+
+necromancy={
+"deadzone": 0.2,
+"events": []
+}
